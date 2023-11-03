@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { SignUpValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
 import { Link } from "react-router-dom";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignUpForm = () => {
   const isLoading = false;
@@ -31,14 +32,18 @@ const SignUpForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof SignUpValidation>) {
+    const newUser = await createUserAccount(values);
+    console.log(newUser);
   }
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img
+          src="/assets/images/logo.svg"
+          alt="logo"
+        />
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account
         </h2>
@@ -57,7 +62,11 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input
+                    type="text"
+                    className="shad-input"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -70,7 +79,11 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input
+                    type="text"
+                    className="shad-input"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,7 +96,11 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" className="shad-input" {...field} />
+                  <Input
+                    type="email"
+                    className="shad-input"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,13 +113,20 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input
+                    type="password"
+                    className="shad-input"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary">
+          <Button
+            type="submit"
+            className="shad-button_primary"
+          >
             {isLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
